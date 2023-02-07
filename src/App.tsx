@@ -1,26 +1,37 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import { useState } from "react";
+import { BodyScreen, Header, Image, Text, TextContainer } from "./styles.App";
+import RocketImage from "./assets/images/rocket.svg";
+import { AddFormComponent, ListComponent } from "./components";
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+export interface dataInterface {
+  id: string;
+  content: string;
+  isMark: boolean;
 }
 
-export default App;
+export const App = () => {
+  const [data, setData] = useState<dataInterface[]>([]);
+
+  const handleChangeData = (newData: dataInterface[]) => {
+    setData(newData);
+  };
+
+  return (
+    <BodyScreen className="App">
+      <Header>
+        <Image
+          src={RocketImage}
+          heightimage={2.25}
+          widthImage={1.375}
+          alt="logo site"
+        />
+        <TextContainer>
+          <Text colortext="BLUE">to</Text>
+          <Text colortext="PURPLE_DARK">do</Text>
+        </TextContainer>
+      </Header>
+      <AddFormComponent data={data} handleChangeData={handleChangeData} />
+      <ListComponent data={data} handleChangeData={handleChangeData} />
+    </BodyScreen>
+  );
+};
